@@ -44,7 +44,23 @@ class ProdutoDao{
     }
 
     public function getProdutos(){
+        $rs = $this->con->query("select * from produtos"); //utilizando query pra buscar todos os produtos porque nao é paramatrizado
 
+        $lista = array();
+        while($row = $rs ->fetch(PDO::FETCH_OBJ)){
+            $produto = new Produto();
+            $produto->setNome($row->nome);
+            $produto->setId($row->id);
+            $produto->setDescricao($row->des);
+            $produto->setData($row->dat_fab);;
+            $produto->setEstoque($row->est);
+            $produto->setPreco($row->preco);
+            $produto->setCodigo($row->cod_fab);
+
+            $lista[] = $produto; //criando um array de produtos
+        }
+
+        return $lista;
     }
     
 }
