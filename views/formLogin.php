@@ -30,13 +30,12 @@
                     </div>
 
                     <?php
-                        if(isset($_REQUEST['erro'])){
+                         if(isset($_REQUEST['erro'])){
                             $tipo = (int)$_REQUEST['erro'];
                             if($tipo == 1){
-                                echo "<b> <font color='red'> Login Incorreto!</font></b>";
+                                echo "<b><font color='red'>Login Incorreto!</font></b>";
                             }
-
-                        }
+                         }   
                     ?>
 
                     <a class="d-block text-center mt-2 small" href="formCliente.php">Não possui uma conta? Cadastre-se aqui</a>

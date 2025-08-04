@@ -13,9 +13,9 @@
                       Produtos
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Cadastrar</a></li>
+                      <li><a class="dropdown-item" href="formProduto.php">Cadastrar</a></li>
                       <li><a class="dropdown-item" href="#">Cadastrar Vários</a></li>
-                      <li><a class="dropdown-item" href="#">Consultar</a></li>
+                      <li><a class="dropdown-item" href="../controlers/controlerProduto.php?opcao=2">Consultar</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#">Show Room</a></li>
                     </ul>
@@ -50,17 +50,16 @@
                 </ul>
 
                 <div class="col-md-3 text-end">
-                  <?php
-                    if(!isset($_SESSION['cliente'])){
-          
-                  ?>
-                                    
+                   <?php
+                      if(!isset($_SESSION['cliente']))
+                      {
+                   ?>                 
                       <a class="btn btn-outline-primary me-2" role="button" href="formLogin.php">Login</a>                  
-                  <?php
-                  }
-                  else{
-                      include_once 'modal.inc.php';
-                    }                  
-                  ?>
+                   <?php
+                      }
+                      else{
+                        include_once 'modal.inc.php';
+                      }                   
+                   ?>                 
                 </div>
               </header>

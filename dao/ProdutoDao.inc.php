@@ -6,62 +6,92 @@ include_once "../utils/funcoesUteis.php";
 class ProdutoDao{
     private $con;
 
-    function __construct(){ //conectando no banco de dados
+    function __construct(){
         $c = new Conexao();
         $this->con = $c->getConexao();
     }
 
-
     public function incluirProduto(Produto $produto){
-        $sql = $this-> con->prepare("insert into produtos (nome, data_fab, preco, estoque, descricao, resumo, referencia, cod_fab) 
-        values (:nom, :dat_fab, :prec, :est,:des, :resu, :ref, :cod_f");
-
-        $sql -> bindValue(":nom", $produto->getNome());
-        $sql -> bindValue(":dat_fab", converterDataMysql($produto->getData_fab()));
-        $sql -> bindValue(":prec", $produto->getPreco());
-        $sql -> bindValue(":est", $produto->getEstoque());
-        $sql -> bindValue(":des", $produto->getDescricao());
-        $sql -> bindValue(":resu", $produto->getResumo());
-        $sql -> bindValue(":ref", $produto->getResumo());
-        $sql -> bindValue(":cod_f", $produto->getCodigo());
-        $sql -> execute();
+        $sql = $this->con->prepare("insert into produtos 
+        (nome, descricao, data_fabricacao, resumo, preco, estoque, referencia, cod_fabricante) values 
+        (:nom, :desc, :data, :res, :preco, :est, :ref, :fab)");
+         $sql->bindValue(':nom', $produto->getNome());
+         $sql->bindValue(':desc', $produto->getDescricao());
+         $sql->bindValue(':res', $produto->getResumo());
+         $sql->bindValue(':preco', $produto->getPreco());
+         $sql->bindValue(':est', $produto->getEstoque());
+         $sql->bindValue(':ref', $produto->getReferencia());
+         $sql->bindValue(':fab', $produto->getFabricante());
+         $sql->bindValue(':data', converteDataMysql($produto->getDataFabricacao()));
+         $sql->execute();
     }
-   
-
-
-   
 
     public function excluirProduto($id){
-
+        $sql = $this->con->prepare("delete from produtos where produto_id=:id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
     }
 
     public function alterarProduto(Produto $produto){
-
+         $sql = $this->con->prepare("update produtos set nome=:nom, descricao=:desc, resumo=:res, preco=:preco, estoque=:est, cod_fabricante=:fab, data_fabricacao=:data where produto_id=:id");
+          $sql->bindValue(':nom', $produto->getNome());
+         $sql->bindValue(':desc', $produto->getDescricao());
+         $sql->bindValue(':res', $produto->getResumo());
+         $sql->bindValue(':preco', $produto->getPreco());
+         $sql->bindValue(':est', $produto->getEstoque());
+         $sql->bindValue(':fab', $produto->getFabricante());
+         $sql->bindValue(':data', converteDataMysql($produto->getDataFabricacao()));
+         $sql->bindValue(':id', $produto->getProduto_id());
+         $sql->execute();
     }
 
     public function getProduto($id){
+        $sql = $this->con->prepare("select * from produtos where produto_id=:id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
 
-    }
+        $row = $sql->fetch(PDO::FETCH_OBJ);
+       
+            $produto = new Produto();
+            $produto->setProduto_id($row->produto_id);
+            $produto->setNome($row->nome);
+            $produto->setDescricao($row->descricao);
+            $produto->setResumo($row->resumo);
+            $produto->setPreco($row->preco);
+            $produto->setDescricao($row->descricao);
+            $produto->setDataFabricacao($row->data_fabricacao);
+            $produto->setEstoque($row->estoque);
+            $produto->setReferencia($row->referencia);
+            $produto->setFabricante($row->cod_fabricante);
+ 
+            return $produto;
+        
+        }
+        
+
 
     public function getProdutos(){
-        $rs = $this->con->query("select * from produtos"); //utilizando query pra buscar todos os produtos porque nao é paramatrizado
+        $rs = $this->con->query("select * from produtos");
 
         $lista = array();
-        while($row = $rs ->fetch(PDO::FETCH_OBJ)){
+        while($row = $rs->fetch(PDO::FETCH_OBJ)){
             $produto = new Produto();
+            $produto->setProduto_id($row->produto_id);
             $produto->setNome($row->nome);
-            $produto->setId($row->id);
-            $produto->setDescricao($row->des);
-            $produto->setData($row->dat_fab);;
-            $produto->setEstoque($row->est);
+            $produto->setDescricao($row->descricao);
+            $produto->setResumo($row->resumo);
             $produto->setPreco($row->preco);
-            $produto->setCodigo($row->cod_fab);
+            $produto->setDescricao($row->descricao);
+            $produto->setDataFabricacao($row->data_fabricacao);
+            $produto->setEstoque($row->estoque);
+            $produto->setReferencia($row->referencia);
+            $produto->setFabricante($row->cod_fabricante);
 
-            $lista[] = $produto; //criando um array de produtos
+            $lista[] = $produto;
         }
-
         return $lista;
     }
-    
 }
+
+
 ?>

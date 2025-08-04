@@ -5,7 +5,7 @@
 <h1 class="text-center">Inclusão de produto</h1>
 <p> 
   
-<form class="row g-3" action="../controlers/controlerProduto.php" method="post">
+<form class="row g-3" action="../controlers/controlerProduto.php" method="get">
   <div class="col-md-3">
     <label for="pReferencia" class="form-label">Nº Referencia</label>
     <input type="text" class="form-control" name="pReferencia">
@@ -25,7 +25,7 @@
   <div class="col-md-3">
     <label for="pFabricante" class="form-label">Fabricante</label>
     <select name="pFabricante" class="form-select">
-      <!--<option selected value="0">Escolha...</option>-->
+      <!-- <option selected value="0">Escolha...</option> -->
       <option selected value="1000">Apple</option>
     </select>
   </div>

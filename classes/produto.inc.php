@@ -1,98 +1,115 @@
 <?php
 class Produto{
-    private $id;
-    private $nome;
-    private $data_fab;
-    private $preco;
-    private $estoque;
-    private $descricao;
-    private $resumo;
-    private $referencia;
-    private $cod_fab;
+    private string $produto_id;
+    private string $nome;
+    private string $descricao;
+    private string $resumo;
+    private string $data_fabricacao;
+    private float $preco;
+    private int $estoque;
+    private int $referencia;
+    private int $fabricante;
 
-    function setProduto($nome, $data_fab, $preco, $estoque, $descricao, $resumo, $referencia, $cod_fab){
-        $this->nome = $nome;
-        $this->data_fab = strtotime($data_fab);
-        $this->preco = $preco;
-        $this->estoque = $estoque;
-        $this->descricao = $descricao;
-        $this->resumo = $resumo;
-        $this->referencia = $referencia;
-        $this->cod_fab = $cod_fab;
+    public function setProduto($nome, $descricao, $resumo, $data, $preco, $estoque, $referencia, $fabricante)
+    {
+             $this->nome = $nome;
+             $this->descricao = $descricao;
+             $this->resumo = $resumo;
+             $this->preco = $preco;
+             $this->estoque = $estoque;
+             $this->referencia = $referencia;
+             $this->fabricante = $fabricante;            
+             $this->data_fabricacao = strtotime($data);
     }
 
-    function getId(){
-        return $this->id;
+    public function getProduto_id()
+    {
+       return $this->produto_id;
     }
 
-    function setId($id){
-        $this->id = $id;
-    }
-    function getNome(){
-        return $this->nome;
+    public function setProduto_id($pId)
+    {
+           return $this->produto_id = $pId;
     }
 
-    function setNome($nome){
-        $this->nome = $nome;
+    public function getNome()
+    {
+           return $this->nome;
     }
 
-    function getData_fab(){
-        return $this->data_fab;
+    public function setNome($pNome)
+    {
+           return $this->nome = $pNome;
     }
 
-    function setData($data_fab){
-        $this->data_fab = strtotime($data_fab);
+    public function getDescricao()
+    {
+           return $this->descricao;
     }
 
-    function getPreco(){
-        return $this->preco;
+    public function setDescricao($pDescricao)
+    {
+           return $this->descricao = $pDescricao;
     }
 
-    function setPreco($preco){
-        $this->preco = $preco;
+    public function getResumo()
+    {
+           return $this->resumo;
     }
 
-    function getEstoque(){
-        return $this->estoque;
+    public function setResumo($pResumo)
+    {
+           return $this->resumo = $pResumo;
     }
 
-    function setEstoque($estoque){
-        $this->estoque = $estoque;
+    public function getPreco()
+    {
+           return $this->preco;
     }
 
-    function getDescricao(){
-        return $this->descricao;
+    public function setPreco($pPreco)
+    {
+           return $this->preco = $pPreco;
     }
 
-    function setDescricao($descricao){
-        $this->descricao = $descricao;
+    public function getEstoque()
+    {
+           return $this->estoque;
     }
 
-    function getResumo(){
-        return $this->resumo;
+    public function setEstoque($pEstoque)
+    {
+           return $this->estoque = $pEstoque;
     }
 
-    function setResumo($resumo){
-        $this->resumo = $resumo;
+    public function getDataFabricacao()
+    {
+           return $this->data_fabricacao;
     }
 
-    function getReferencia(){
-        return $this->referencia;
+    public function setDataFabricacao($pData)
+    {
+           return $this->data_fabricacao = strtotime($pData);
     }
 
-    function setReferencia($referencia){
-        $this->referencia = $referencia;
+    public function getFabricante()
+    {
+           return $this->fabricante;
     }
 
-    function getCodigo(){
-        return $this->cod_fab;
+    public function setFabricante($pFabricante)
+    {
+           return $this->fabricante = $pFabricante;
     }
 
-    function setCodigo($cod_fab){
-        $this->cod_fab = $cod_fab;
+    public function getReferencia()
+    {
+           return $this->referencia;
     }
 
-
+    public function setReferencia($pReferencia)
+    {
+            $this->referencia = $pReferencia;
+    }
 }
-
 ?>

@@ -2,9 +2,8 @@
       require_once '../classes/produto.inc.php';
       require_once '../utils/funcoesUteis.php';
       require_once 'includes/cabecalho.inc.php';   
-
-      //session_start(); como no arquivo cabecalho.inc.php ja esta com a sessao aberta nao posso abrir outra.
-      $produtos = $_SESSION['produtos'];
+      
+      $produtos =  $_SESSION['produtos'];
 ?>
 <p>
 <h1 class="text-center">Produtos do estoque</h1>
@@ -25,21 +24,20 @@
       </thead>
       <tbody class="table-group-divider">
       <?php
-            foreach($produtos as $produto){
-
-            
+            foreach($produtos as $produto)
+            {
                echo "<tr align='center'>";
-               echo "<td>".$produto->getId()."</td>";
+               echo "<td>".$produto->getProduto_id()."</td>";
                echo "<td><strong>".$produto->getNome()."</strong></td>";
                echo "<td>".$produto->getResumo()."</td>";
-               echo "<td>".formatarData($produto->getData_fab())."</td>";
-               echo "<td>".$produto->getPreco()."</td>";
+               echo "<td>".formatarData($produto->getDataFabricacao())."</td>";
+               echo "<td>"."R$ ". $produto->getPreco() ."</td>";
                echo "<td>".$produto->getEstoque()."</td>";
-               echo "<td>".$produto->getCodigo()."</td>";
-               echo "<td><a href='#' class='btn btn-success btn-sm'>A</a> ";
-               echo "<a href='#' class='btn btn-danger btn-sm'>X</a></td>";
+               echo "<td>".$produto->getFabricante()."</td>";
+               echo "<td><a href='../controlers/controlerProduto.php?opcao=4&id=".$produto->getProduto_id()."'class='btn btn-success btn-sm'>A</a> ";
+               echo "<a href='../controlers/controlerProduto.php?opcao=3&id=".$produto->getProduto_id()."' class='btn btn-danger btn-sm'>X</a></td>";
                echo "</tr>";
-            }
+            }      
       ?>
       </tbody>  
 </table>
