@@ -1,5 +1,9 @@
 <?php
-     require_once 'includes/cabecalho.inc.php';
+      require_once '../classes/produto.inc.php';
+      require_once '../classes/item.inc.php';
+
+      require_once 'includes/cabecalho.inc.php';
+      $carrinho = $_SESSION['carrinho'];
     
 ?>
 
@@ -25,29 +29,34 @@
       </thead>
       <tbody class="table-group-divider">
       <?php
+            $cont = 1;
+            $soma = 0;
 
-          // percurso inicia aqui             
+          foreach($carrinho as $item){            
       ?>
             <tr class="align-middle" style="text-align: center">
-                  <td>0</td>
-                  <td>ID 0</td>
-                  <td>Nome aqui</td>
-                  <td>Fabricante aqui</td>
-                  <td>R$ 000,00</td>
-                  <td>N</td>
-                  <td>R$ Valor Item</td>
-                  <td><a href="#" class='btn btn-danger btn-sm'>X</a></td>
+                  <td><?= $cont?></td>
+                  <td><?= $item->getProduto()->getProduto_id()?></td>
+                  <td><?= $item->getProduto()->getNome()?></td>
+                  <td><?= $item->getProduto()->getFabricante()?></td>
+                  <td>R$<?=number_format($item->getValorItem(),2,',','.')?></td>
+                  <td>1</td>
+                  <td>R$<?= number_format($item->getValorItem(),2,',','.')?></td>
+                  <td><a href="../controlers/controlerCarrinho.php?opcao=2&index=<?=$cont-1?>" class='btn btn-danger btn-sm'>X</a></td>
                   
             </tr>
 
-          <!-- percurso termina aqui -->
-         
-            <tr align="right"><td colspan="8"><font face="Verdana" size="4" color="red"><b>Valor Total = R$ total</b></font></td></tr>
+            <?php
+            $soma += $item->getValorItem();
+            $cont++;
+            }
+            ?>
+            <tr align="right"><td colspan="8"><font face="Verdana" size="4" color="red"><b>Valor Total = R$ <?= number_format($soma,2,',','.')?></b></font></td></tr>
       </table> 
       <div class="container text-center">
             <div class="row">
                   <div class="col">
-                        <a class="btn btn-warning" role="button" href="#"><b>Continuar comprando</b></a>
+                        <a class="btn btn-warning" role="button" href="../controlers/controlerProduto.php?opcao=6"><b>Continuar comprando</b></a>
                   </div>
                   <div class="col">
                         <a class="btn btn-danger" role="button" href="#"><b>Esvaziar carrinho</b></a>

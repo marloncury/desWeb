@@ -15,13 +15,13 @@ if($opcao == 1){ // incluir
     header("Location: controlerProduto.php?opcao=2");
 }
 
-if($opcao == 2){ // selecionar todos
+if(($opcao == 2) || ($opcao==6)) { // selecionar todos
     $produtoDao = new ProdutoDao();
     $produtos = $produtoDao->getProdutos();
 
     session_start();
     $_SESSION['produtos'] = $produtos;
-    if(($opcao==2) || ($opcao==6)){
+    if(($opcao==2)){
         header("Location: ../views/exibirProdutos.php");
     }
     else{
@@ -53,7 +53,16 @@ if($opcao == 4){ // buscar produto para alterar
     
 }
 
+if($opcao == 5){ // selecionar todos
+    $produto = new Produto();
+    $produto->setProduto($_REQUEST['pNome'], $_REQUEST['pDescricao'], $_REQUEST['pResumo'], $_REQUEST['pDataFabricacao'], $_REQUEST['pPreco'], $_REQUEST['pEstoque'], $_REQUEST['pReferencia'], $_REQUEST['pFabricante']);
+    $produto->setProduto_id($_REQUEST['pId']);
+    
+    $produtoDao = new ProdutoDao();
+    $produtoDao->alterarProduto($produto);
 
+    header("Location: controlerProdutos.php?Opcao2");
+}
 
 
 ?>
